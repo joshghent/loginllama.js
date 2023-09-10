@@ -3,6 +3,15 @@
 ## 1.0.0 (2023-09-10)
 
 
+### Bug Fixes
+
+* release process condition ([0a8da36](https://github.com/joshghent/loginllama.js/commit/0a8da363a2d1cc80b46d69175d4870c4668ddbb1))
+* release process condition ([ca0537b](https://github.com/joshghent/loginllama.js/commit/ca0537b50d6f2a1c3cbd205bf4768947d2bb83dc))
+* update last-commit-sha ([21cbe6e](https://github.com/joshghent/loginllama.js/commit/21cbe6e06fb564a21c259735c70fcccfc5042913))
+
+## 1.0.0 (2023-09-10)
+
+
 ### Features
 
 * added workflow to test PR's ([76f8cfa](https://www.github.com/joshghent/loginllama.js/commit/76f8cfacb0f018ae2e78029e5b65dda17ea6fb07))
