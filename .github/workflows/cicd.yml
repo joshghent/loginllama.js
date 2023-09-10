@@ -44,7 +44,8 @@ jobs:
         uses: google-github-actions/release-please-action@v3
         with:
           release-type: node
-          package-name: "LoginLlama.js"
+          last-release-sha: "ed2fe24a24eba995dacdbd9c6b5e469e16de0d13"
+          package-name: "loginllama"
           changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"chore","section":"Other Changes","hidden":false},{"type":"refactor","section":"Other Changes","hidden":false}]'
 
   release:
