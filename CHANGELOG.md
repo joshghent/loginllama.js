@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/joshghent/loginllama.js/compare/v1.0.0...v1.1.0) (2023-09-10)
+
+
+### Features
+
+* add npm release process ([e2044e3](https://github.com/joshghent/loginllama.js/commit/e2044e360e5fdfbf52ece8209d6737060698541b))
+
 ## 1.0.0 (2023-09-10)
 
 
