@@ -44,23 +44,27 @@ jobs:
         uses: google-github-actions/release-please-action@v3
         with:
           release-type: node
-          last-release-sha: "ed2fe24a24eba995dacdbd9c6b5e469e16de0d13"
           package-name: "loginllama"
           changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"chore","section":"Other Changes","hidden":false},{"type":"refactor","section":"Other Changes","hidden":false}]'
 
-  release:
+  publish:
     needs: changelog
+    if: "contains(github.event.head_commit.message, 'chore: release')"
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.changelog.outputs.releases_created
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+          node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
