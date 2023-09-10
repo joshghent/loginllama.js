@@ -46,7 +46,7 @@ jobs:
   release:
     needs: release-pr
     runs-on: ubuntu-latest
-    if: "github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')"
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.release-pr.outputs.releases_created
 
     steps:
       - name: Checkout code
