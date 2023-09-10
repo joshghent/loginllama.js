@@ -24,6 +24,17 @@ jest.mock("./../api", () => {
 });
 
 import { LoginLlama, LoginCheckStatus } from "../loginllama";
+import { Request } from "express";
+
+const mockRequest = (ip: string, userAgent: string): Partial<Request> => {
+  return {
+    ip: ip,
+    ips: [ip],
+    headers: {
+      "user-agent": userAgent,
+    },
+  };
+};
 
 describe("LoginLlama", () => {
   let loginLlama: LoginLlama;
@@ -83,5 +94,18 @@ describe("LoginLlama", () => {
         identity_key: undefined as any,
       })
     ).rejects.toThrow("identity_key is required");
+  });
+
+  it("should extract ip_address and user_agent from request object", async () => {
+    const req = mockRequest("192.168.1.1", "Mozilla/5.0");
+
+    const result = await loginLlama.check_login({
+      request: req as Request,
+      identity_key: "validUser",
+    });
+
+    expect(result.status).toBe("success");
+    expect(result.message).toBe("Valid login");
+    expect(result.codes).toContain(LoginCheckStatus.VALID);
   });
 });
