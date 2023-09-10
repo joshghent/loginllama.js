@@ -32,21 +32,25 @@ jobs:
       - name: Run tests
         run: npm test
 
-  release-pr:
+  changelog:
     needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    outputs:
+      releases_created: ${{ steps.tag-release.outputs.releases_created }}
 
     steps:
       - name: Release PR
         uses: google-github-actions/release-please-action@v3
         with:
           release-type: node
-          package-name: "LoginLlama.js" # Replace with your package name
+          package-name: "LoginLlama.js"
+          changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"chore","section":"Other Changes","hidden":false},{"type":"refactor","section":"Other Changes","hidden":false}]'
 
   release:
-    needs: release-pr
+    needs: changelog
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.release-pr.outputs.releases_created
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.changelog.outputs.releases_created
 
     steps:
       - name: Checkout code
