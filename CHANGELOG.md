@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/joshghent/loginllama.js/compare/v1.2.2...v1.2.3) (2023-09-11)
+
+
+### Bug Fixes
+
+* url for the check login endpoint ([#22](https://github.com/joshghent/loginllama.js/issues/22)) ([0f2dd97](https://github.com/joshghent/loginllama.js/commit/0f2dd97bdda13a561629874fbf429c93ca6be4c2))
+
 ## [1.2.2](https://github.com/joshghent/loginllama.js/compare/v1.2.1...v1.2.2) (2023-09-11)
 
 
