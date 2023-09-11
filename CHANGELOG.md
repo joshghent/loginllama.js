@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/joshghent/loginllama.js/compare/v1.2.1...v1.2.2) (2023-09-11)
+
+
+### Bug Fixes
+
+* add ts-build process to release ([#20](https://github.com/joshghent/loginllama.js/issues/20)) ([b5a286e](https://github.com/joshghent/loginllama.js/commit/b5a286e31712bf8c97771a2fa38e3f2054c66736))
+
 ## [1.2.1](https://github.com/joshghent/loginllama.js/compare/v1.2.0...v1.2.1) (2023-09-11)
 
 
