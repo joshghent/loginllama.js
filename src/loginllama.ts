@@ -32,9 +32,9 @@ export class LoginLlama {
   constructor(apiToken?: any) {
     this.token = apiToken || String(process.env["LOGINLLAMA_API_KEY"]);
     this.api = new Api(
-      new Headers({
+      {
         "X-API-KEY": this.token,
-      }),
+      },
       API_ENDPOINT
     );
   }

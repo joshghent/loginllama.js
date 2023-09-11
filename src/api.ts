@@ -1,7 +1,7 @@
 export default class Api {
   headers: Headers;
   baseUrl: string;
-  constructor(defaultHeaders: Headers, url: string) {
+  constructor(defaultHeaders: { [key: string]: string }, url: string) {
     this.headers = new Headers({
       "X-LOGINLLAMA-SOURCE": "node-sdk",
       "X-LOGINLLAMA-VERSION": "1",
@@ -18,7 +18,7 @@ export default class Api {
         headers: this.headers,
       });
       if (!response.ok) {
-        throw new Error(`HTTP error ${response.status}`);
+        throw new Error(`${response.status}: ${response.statusText}`);
       }
       const json = await response.json();
       return json;
@@ -35,7 +35,7 @@ export default class Api {
         headers: this.headers,
       });
       if (!response.ok) {
-        throw new Error(`HTTP error ${response.status}`);
+        throw new Error(`${response.status}: ${response.statusText}`);
       }
       const json = await response.json();
       return json;
