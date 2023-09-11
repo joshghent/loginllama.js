@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.2.0](https://github.com/joshghent/loginllama.js/compare/v1.1.0...v1.2.0) (2023-09-11)
+
+
+### Features
+
+* update release process ([#15](https://github.com/joshghent/loginllama.js/issues/15)) ([ec2c5d5](https://github.com/joshghent/loginllama.js/commit/ec2c5d5e129646aefab3844aa6dcae3a32a0b347))
+
+
+### Bug Fixes
+
+* release process 2 ([#16](https://github.com/joshghent/loginllama.js/issues/16)) ([f8cbb5d](https://github.com/joshghent/loginllama.js/commit/f8cbb5d8bfebb166388d1ccc72a5b754287cf569))
+
+## [1.1.0](https://github.com/joshghent/loginllama.js/compare/v1.0.0...v1.1.0) (2023-09-10)
+
+
+### Features
+
+* add npm release process ([e2044e3](https://github.com/joshghent/loginllama.js/commit/e2044e360e5fdfbf52ece8209d6737060698541b))
+
+## 1.0.0 (2023-09-10)
+
+
+### Bug Fixes
+
+* release process condition ([0a8da36](https://github.com/joshghent/loginllama.js/commit/0a8da363a2d1cc80b46d69175d4870c4668ddbb1))
+* release process condition ([ca0537b](https://github.com/joshghent/loginllama.js/commit/ca0537b50d6f2a1c3cbd205bf4768947d2bb83dc))
+* update last-commit-sha ([21cbe6e](https://github.com/joshghent/loginllama.js/commit/21cbe6e06fb564a21c259735c70fcccfc5042913))
+
 ## 1.0.0 (2023-09-10)
 
 
