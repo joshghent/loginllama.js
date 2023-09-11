@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.4](https://github.com/joshghent/loginllama.js/compare/v1.2.3...v1.2.4) (2023-09-11)
+
+
+### Bug Fixes
+
+* how api keys are passed ([#24](https://github.com/joshghent/loginllama.js/issues/24)) ([410b978](https://github.com/joshghent/loginllama.js/commit/410b9780ce235923dfa582b99ba3039db6fa5da5))
+
 ## [1.2.3](https://github.com/joshghent/loginllama.js/compare/v1.2.2...v1.2.3) (2023-09-11)
 
 
