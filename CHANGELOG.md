@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/joshghent/loginllama.js/compare/v1.2.0...v1.2.1) (2023-09-11)
+
+
+### Bug Fixes
+
+* release process ([#18](https://github.com/joshghent/loginllama.js/issues/18)) ([f7e0471](https://github.com/joshghent/loginllama.js/commit/f7e0471e006fffeb1ec676eeb026b29945c9af5a))
+
 ## [1.2.0](https://github.com/joshghent/loginllama.js/compare/v1.1.0...v1.2.0) (2023-09-11)
 
 
