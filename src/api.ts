@@ -18,7 +18,7 @@ export default class Api {
         headers: this.headers,
       });
       if (!response.ok) {
-        throw new Error("HTTP error " + response.status);
+        throw new Error(`HTTP error ${response.status}`);
       }
       const json = await response.json();
       return json;
@@ -35,7 +35,7 @@ export default class Api {
         headers: this.headers,
       });
       if (!response.ok) {
-        throw new Error("HTTP error " + response.status);
+        throw new Error(`HTTP error ${response.status}`);
       }
       const json = await response.json();
       return json;
