@@ -89,7 +89,7 @@ export class LoginLlama {
       throw new Error("identity_key is required");
     }
 
-    return this.api.post("/check/login", {
+    return this.api.post("/login/check", {
       ip_address,
       user_agent,
       identity_key,
