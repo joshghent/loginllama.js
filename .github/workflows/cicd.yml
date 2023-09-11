@@ -4,6 +4,16 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      force_release:
+        description: Whether to run the release job no matter what
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -48,8 +58,10 @@ jobs:
           changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"chore","section":"Other Changes","hidden":false},{"type":"refactor","section":"Other Changes","hidden":false}]'
 
   publish:
-    needs: changelog
-    if: "contains(github.event.head_commit.message, 'chore: release')"
+    needs:
+      - test
+      - changelog
+    if: (contains(github.event.head_commit.message, 'chore: release') && github.event_name == 'push' && github.ref == 'refs/heads/main') || inputs.force_release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
