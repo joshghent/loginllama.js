@@ -19,9 +19,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/joshghent/loginllama-node.git"
+    "url": "git://github.com/joshghent/loginllama.js.git"
   },
-  "bugs": "https://github.com/joshghent/loginllama-node/issues",
+  "bugs": "https://github.com/joshghent/loginllama.js/issues",
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.4",
