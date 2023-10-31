@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.5](https://github.com/joshghent/loginllama.js/compare/v1.2.4...v1.2.5) (2023-10-31)
+
+
+### Bug Fixes
+
+* update repo url ([#28](https://github.com/joshghent/loginllama.js/issues/28)) ([5a24618](https://github.com/joshghent/loginllama.js/commit/5a24618b3e401a8ca80fcb1e650d4058b5c7a3a0))
+
 ## [1.2.4](https://github.com/joshghent/loginllama.js/compare/v1.2.3...v1.2.4) (2023-09-11)
 
 
