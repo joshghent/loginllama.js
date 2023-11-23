@@ -68,11 +68,19 @@ export class LoginLlama {
     ip_address,
     user_agent,
     identity_key,
+    email_address,
+    geo_country,
+    geo_city,
+    user_time_of_day,
   }: {
     request?: Request;
     ip_address?: string;
     user_agent?: string;
     identity_key: string;
+    email_address?: string;
+    geo_country?: string;
+    geo_city?: string;
+    user_time_of_day?: string;
   }): Promise<LoginCheck> {
     if (request) {
       ip_address = request.ip || request.ips[0];
@@ -93,6 +101,10 @@ export class LoginLlama {
       ip_address,
       user_agent,
       identity_key,
+      email_address,
+      geo_country,
+      geo_city,
+      user_time_of_day,
     }) as Promise<LoginCheck>;
   }
 }
