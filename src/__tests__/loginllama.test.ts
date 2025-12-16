@@ -10,11 +10,16 @@ jest.mock("./../api", () => {
               status: "success",
               message: "Valid login",
               codes: [LoginCheckStatus.VALID],
+              risk_score: 2,
+              environment: "staging",
+              meta: {},
             });
           } else {
             return Promise.reject({
               status: "error",
               message: "Login check failed",
+              risk_score: 9,
+              environment: "production",
             });
           }
         }),
@@ -23,8 +28,13 @@ jest.mock("./../api", () => {
   };
 });
 
-import { LoginLlama, LoginCheckStatus } from "../loginllama";
+import {
+  LoginLlama,
+  LoginCheckStatus,
+  verifyWebhookSignature,
+} from "../loginllama";
 import { Request } from "express";
+import crypto from "crypto";
 
 const mockRequest = (ip: string, userAgent: string): Partial<Request> => {
   return {
@@ -40,11 +50,11 @@ describe("LoginLlama", () => {
   let loginLlama: LoginLlama;
 
   beforeEach(() => {
-    loginLlama = new LoginLlama("mockToken");
+    loginLlama = new LoginLlama({ apiKey: "mockToken" });
   });
 
   it("should check valid login", async () => {
-    const result = await loginLlama.check_login({
+    const result = await loginLlama.checkLogin({
       ip_address: "192.168.1.1",
       user_agent: "Mozilla/5.0",
       identity_key: "validUser",
@@ -53,11 +63,13 @@ describe("LoginLlama", () => {
     expect(result.status).toBe("success");
     expect(result.message).toBe("Valid login");
     expect(result.codes).toContain(LoginCheckStatus.VALID);
+    expect(result.risk_score).toBe(2);
+    expect(result.environment).toBe("staging");
   });
 
   it("should throw error for invalid login", async () => {
     await expect(
-      loginLlama.check_login({
+      loginLlama.checkLogin({
         ip_address: "192.168.1.1",
         user_agent: "Mozilla/5.0",
         identity_key: "invalidUser",
@@ -65,12 +77,14 @@ describe("LoginLlama", () => {
     ).rejects.toEqual({
       status: "error",
       message: "Login check failed",
+      risk_score: 9,
+      environment: "production",
     });
   });
 
   it("should throw error if ip_address is missing", async () => {
     await expect(
-      loginLlama.check_login({
+      loginLlama.checkLogin({
         user_agent: "Mozilla/5.0",
         identity_key: "validUser",
       })
@@ -79,7 +93,7 @@ describe("LoginLlama", () => {
 
   it("should throw error if user_agent is missing", async () => {
     await expect(
-      loginLlama.check_login({
+      loginLlama.checkLogin({
         ip_address: "192.168.1.1",
         identity_key: "validUser",
       })
@@ -88,7 +102,7 @@ describe("LoginLlama", () => {
 
   it("should throw error if identity_key is missing", async () => {
     await expect(
-      loginLlama.check_login({
+      loginLlama.checkLogin({
         ip_address: "192.168.1.1",
         user_agent: "Mozilla/5.0",
         identity_key: undefined as any,
@@ -107,5 +121,18 @@ describe("LoginLlama", () => {
     expect(result.status).toBe("success");
     expect(result.message).toBe("Valid login");
     expect(result.codes).toContain(LoginCheckStatus.VALID);
+  });
+
+  it("verifies webhook signatures using constant time comparison", () => {
+    const payload = JSON.stringify({ event: "login.checked" });
+    const secret = "super-secret";
+    const signature = crypto
+      .createHmac("sha256", secret)
+      .update(payload)
+      .digest("hex");
+
+    expect(verifyWebhookSignature(payload, signature, secret)).toBe(true);
+    expect(verifyWebhookSignature(payload, "deadbeef", secret)).toBe(false);
+    expect(verifyWebhookSignature(payload, signature, "wrong-secret")).toBe(false);
   });
 });

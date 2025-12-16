@@ -6,7 +6,7 @@ This TypeScript module provides an interface to interact with the LoginLlama API
 
 ## Installation
 
-Install via NPM. Requires Node.js 18 or higher (as we use the Fetch API)
+Install via NPM. Requires Node.js 24 or higher (native fetch + crypto).
 
 ```
 npm i -s loginllama
@@ -22,53 +22,83 @@ import { LoginLlama } from "loginllama";
 
 ### Initialization
 
-To initialize the `LoginLlama` class, you can either provide an API token directly or set it in the environment variable `LOGINLLAMA_API_KEY`.
+To initialize the `LoginLlama` class, you can either provide an API token directly or set it in the environment variable `LOGINLLAMA_API_KEY`. Pass `baseUrl` if you need to point at a mock server.
 
 ```typescript
-const loginllama = new LoginLlama("YOUR_API_TOKEN");
+const loginllama = new LoginLlama({ apiKey: "YOUR_API_TOKEN" });
 ```
 
 Or, if using the environment variable of `LOGINLLAMA_API_KEY`:
 
 ```typescript
-const loginllama = new LoginLlama();
-// Pulls from the environment variable LOGINLLAMA_API_KEY
+const loginllama = new LoginLlama(); // Pulls from the environment variable LOGINLLAMA_API_KEY
 ```
 
 ### Checking Login Status
 
-The primary function provided by this module is `check_login`, which checks the login status of a user based on various parameters.
+The primary function provided by this module is `checkLogin`, which checks the login status of a user based on various parameters. A backwards-compatible `check_login` alias is still exported.
 
 #### Parameters:
 
 - `request` (optional): An Express request object. If provided, the IP address and user agent will be extracted from this object.
-- `ip_address` (optional): The IP address of the user. If not provided and the `request` object is given, it will be extracted from the request.
-- `user_agent` (optional): The user agent string of the user. If not provided and the `request` object is given, it will be extracted from the request.
-- `identity_key`: The unique identity key for the user. This is a required parameter.
+- `ipAddress` / `ip_address` (optional): The IP address of the user. If not provided and the `request` object is given, it will be extracted from the request.
+- `userAgent` / `user_agent` (optional): The user agent string of the user. If not provided and the `request` object is given, it will be extracted from the request.
+- `identityKey` / `identity_key`: The unique identity key for the user. This is a required parameter.
+- `emailAddress`, `geoCountry`, `geoCity`, `userTimeOfDay`: Optional context fields.
 
 #### Return Value:
 
-The function returns a promise that resolves to a `LoginCheck` object. This object contains the result of the login check, including the status, a message, and any applicable codes indicating the reason for the status.
+The function returns a promise that resolves to a `LoginCheckResponse` object. This object contains the result of the login check, including `status`, `message`, `codes`, `risk_score`, `environment`, and optional `meta`.
 
 #### Examples:
 
 Using IP address and user agent directly:
 
 ```typescript
-const loginCheckResult = await loginLlama.check_login({
-  ip_address: "192.168.1.1",
-  user_agent: "Mozilla/5.0",
-  identity_key: "user123",
+const loginCheckResult = await loginLlama.checkLogin({
+  ipAddress: "192.168.1.1",
+  userAgent: "Mozilla/5.0",
+  identityKey: "user123",
 });
 ```
 
 Using an Express request object:
 
 ```typescript
-const loginCheckResult = await loginLlama.check_login({
+const loginCheckResult = await loginLlama.checkLogin({
   request: req,
-  identity_key: "user123",
+  identityKey: "user123",
 });
+
+if (loginCheckResult.status === "error" || loginCheckResult.risk_score >= 7) {
+  // Block or challenge the login
+}
+```
+
+### Webhook signature verification
+
+Use `verifyWebhookSignature` to check the `X-LoginLlama-Signature` header against the raw request body:
+
+```typescript
+import { verifyWebhookSignature } from "loginllama";
+
+app.post(
+  "/webhook",
+  express.raw({ type: "application/json" }),
+  (req, res) => {
+    const valid = verifyWebhookSignature(
+      req.body,
+      req.headers["x-loginllama-signature"] as string,
+      process.env.WEBHOOK_SECRET!
+    );
+
+    if (!valid) return res.status(401).send("Invalid signature");
+
+    const event = JSON.parse(req.body.toString());
+    // handle event...
+    res.sendStatus(200);
+  }
+);
 ```
 
 ## Error Handling
