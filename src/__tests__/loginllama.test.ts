@@ -1,6 +1,6 @@
 jest.mock("./../api", () => {
   return {
-    __esModule: true, // this property makes it work as a default export
+    __esModule: true,
     default: jest.fn().mockImplementation(() => {
       return {
         // @ts-ignore
@@ -53,11 +53,10 @@ describe("LoginLlama", () => {
     loginLlama = new LoginLlama({ apiKey: "mockToken" });
   });
 
-  it("should check valid login", async () => {
-    const result = await loginLlama.checkLogin({
-      ip_address: "192.168.1.1",
-      user_agent: "Mozilla/5.0",
-      identity_key: "validUser",
+  it("should check valid login with explicit parameters", async () => {
+    const result = await loginLlama.check("validUser", {
+      ipAddress: "192.168.1.1",
+      userAgent: "Mozilla/5.0",
     });
 
     expect(result.status).toBe("success");
@@ -69,10 +68,9 @@ describe("LoginLlama", () => {
 
   it("should throw error for invalid login", async () => {
     await expect(
-      loginLlama.checkLogin({
-        ip_address: "192.168.1.1",
-        user_agent: "Mozilla/5.0",
-        identity_key: "invalidUser",
+      loginLlama.check("invalidUser", {
+        ipAddress: "192.168.1.1",
+        userAgent: "Mozilla/5.0",
       })
     ).rejects.toEqual({
       status: "error",
@@ -82,40 +80,36 @@ describe("LoginLlama", () => {
     });
   });
 
-  it("should throw error if ip_address is missing", async () => {
+  it("should throw error if IP address cannot be detected", async () => {
     await expect(
-      loginLlama.checkLogin({
-        user_agent: "Mozilla/5.0",
-        identity_key: "validUser",
+      loginLlama.check("validUser", {
+        userAgent: "Mozilla/5.0",
       })
-    ).rejects.toThrow("ip_address is required");
+    ).rejects.toThrow("IP address could not be detected");
   });
 
-  it("should throw error if user_agent is missing", async () => {
+  it("should throw error if User-Agent cannot be detected", async () => {
     await expect(
-      loginLlama.checkLogin({
-        ip_address: "192.168.1.1",
-        identity_key: "validUser",
+      loginLlama.check("validUser", {
+        ipAddress: "192.168.1.1",
       })
-    ).rejects.toThrow("user_agent is required");
+    ).rejects.toThrow("User-Agent could not be detected");
   });
 
   it("should throw error if identity_key is missing", async () => {
     await expect(
-      loginLlama.checkLogin({
-        ip_address: "192.168.1.1",
-        user_agent: "Mozilla/5.0",
-        identity_key: undefined as any,
+      loginLlama.check("", {
+        ipAddress: "192.168.1.1",
+        userAgent: "Mozilla/5.0",
       })
-    ).rejects.toThrow("identity_key is required");
+    ).rejects.toThrow("identityKey is required");
   });
 
   it("should extract ip_address and user_agent from request object", async () => {
     const req = mockRequest("192.168.1.1", "Mozilla/5.0");
 
-    const result = await loginLlama.check_login({
+    const result = await loginLlama.check("validUser", {
       request: req as Request,
-      identity_key: "validUser",
     });
 
     expect(result.status).toBe("success");
