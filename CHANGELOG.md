@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/joshghent/loginllama.js/compare/v1.2.5...v1.3.0) (2023-11-24)
+
+
+### Features
+
+* add new params for the login check system ([#39](https://github.com/joshghent/loginllama.js/issues/39)) ([51b99ef](https://github.com/joshghent/loginllama.js/commit/51b99efbabfc10b72cb3c556df26c59b153ca970))
+
 ## [1.2.5](https://github.com/joshghent/loginllama.js/compare/v1.2.4...v1.2.5) (2023-10-31)
 
 
