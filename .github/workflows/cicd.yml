@@ -68,6 +68,9 @@ jobs:
       - changelog
     if: "(contains(github.event.head_commit.message, 'chore(main): release') && github.event_name == 'push' && github.ref == 'refs/heads/main') || inputs.force_release"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -89,7 +92,7 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Publish to npm
-        run: pnpm publish --no-git-checks
+      - name: Publish to npm with provenance
+        run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
