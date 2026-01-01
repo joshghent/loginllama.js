@@ -168,7 +168,7 @@ export class LoginLlama {
       geo_country: options.geoCountry,
       geo_city: options.geoCity,
       user_time_of_day: options.userTimeOfDay,
-    }) as Promise<LoginCheckResponse>;
+    });
   }
 
   /**

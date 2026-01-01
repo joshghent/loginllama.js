@@ -14,8 +14,9 @@
   "author": "Josh Ghent <me@joshghent.com>",
   "homepage": "https://loginllama.app",
   "license": "MIT",
+  "packageManager": "pnpm@9.15.0",
   "engines": {
-    "node": ">=24.0.0"
+    "node": ">=22.0.0"
   },
   "repository": {
     "type": "git",

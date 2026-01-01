@@ -14,9 +14,11 @@ Official Node.js/TypeScript SDK for [LoginLlama](https://loginllama.app) - AI-po
 
 ```bash
 npm install loginllama@2.0.0
+# or
+pnpm add loginllama@2.0.0
 ```
 
-Requires Node.js 18 or higher.
+Requires Node.js 22 or higher.
 
 ## Quick Start
 
