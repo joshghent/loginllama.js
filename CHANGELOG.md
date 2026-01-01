@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/joshghent/loginllama.js/compare/v1.3.0...v1.4.0) (2026-01-01)
+
+
+### Features
+
+* new api params ([#66](https://github.com/joshghent/loginllama.js/issues/66)) ([3726075](https://github.com/joshghent/loginllama.js/commit/372607532457a89951bd0c1ccb8b72af18736d37))
+
 ## [1.3.0](https://github.com/joshghent/loginllama.js/compare/v1.2.5...v1.3.0) (2023-11-24)
 
 
