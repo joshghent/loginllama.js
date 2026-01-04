@@ -25,6 +25,11 @@ export enum LoginCheckStatus {
  * Internal JSON:API response format from the API
  * @internal
  */
+/**
+ * Authentication outcome values for tracking login results
+ */
+export type AuthenticationOutcome = "success" | "failed" | "pending";
+
 export interface JsonApiResponse {
   data?: {
     type: "login_check";
@@ -33,6 +38,7 @@ export interface JsonApiResponse {
       risk_score: number;
       risk_codes: string[];
       unrecognized_device: boolean;
+      authentication_outcome: AuthenticationOutcome;
       message: string;
     };
   };
@@ -66,6 +72,8 @@ export interface LoginCheckResponse {
   environment: "production" | "staging" | string;
   /** Whether an unrecognized device was detected */
   unrecognized_device?: boolean;
+  /** Customer's authentication outcome: 'success', 'failed', or 'pending' */
+  authentication_outcome?: AuthenticationOutcome;
   /** Whether an email notification was sent to the user */
   email_sent?: boolean;
   /** Additional metadata */
@@ -91,6 +99,14 @@ export interface CheckOptions {
   geoCity?: string;
   /** Time of login attempt */
   userTimeOfDay?: string;
+
+  /**
+   * Customer's authentication outcome
+   * - 'success': User's credentials were valid (default)
+   * - 'failed': User's credentials were invalid (wrong password, MFA failed, etc.)
+   * - 'pending': Pre-auth check, outcome not yet known
+   */
+  authenticationOutcome?: AuthenticationOutcome;
 
   /** Express/Next.js request object for automatic extraction */
   request?: unknown;
@@ -126,6 +142,7 @@ export function transformApiResponse(
       risk_score: attrs.risk_score,
       environment: jsonApi.meta?.environment || "production",
       unrecognized_device: attrs.unrecognized_device,
+      authentication_outcome: attrs.authentication_outcome,
       email_sent: jsonApi.meta?.email_sent,
     };
   }
