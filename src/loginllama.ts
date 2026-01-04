@@ -2,13 +2,23 @@ import Api from "./api";
 import crypto from "crypto";
 import { ContextDetector } from "./context-detector";
 import { IPExtractor } from "./ip-extractor";
-import { CheckOptions, LoginCheckResponse, LoginCheckStatus } from "./types";
+import {
+  AuthenticationOutcome,
+  CheckOptions,
+  LoginCheckResponse,
+  LoginCheckStatus,
+} from "./types";
 
 const API_ENDPOINT =
   process.env["LOGINLLAMA_API_BASE_URL"] || "https://loginllama.app/api/v1";
 
 // Re-export types for convenience
-export { LoginCheckStatus, LoginCheckResponse, CheckOptions };
+export {
+  AuthenticationOutcome,
+  CheckOptions,
+  LoginCheckResponse,
+  LoginCheckStatus,
+};
 
 /**
  * Verify webhook signature using HMAC-SHA256
@@ -168,6 +178,62 @@ export class LoginLlama {
       geo_country: options.geoCountry,
       geo_city: options.geoCity,
       user_time_of_day: options.userTimeOfDay,
+      authentication_outcome: options.authenticationOutcome,
+    });
+  }
+
+  /**
+   * Report a successful authentication
+   *
+   * Use this after the user has successfully authenticated with your system.
+   * This is a convenience method equivalent to:
+   * `check(identityKey, { ...options, authenticationOutcome: 'success' })`
+   *
+   * @param identityKey - User identifier (email, username, user ID, etc.)
+   * @param options - Optional overrides and additional context
+   * @returns Promise resolving to login check result
+   *
+   * @example
+   * // After successful login
+   * const authResult = await authenticate(email, password);
+   * if (authResult.success) {
+   *   await loginllama.reportSuccess(user.id, { request: req });
+   * }
+   */
+  public async reportSuccess(
+    identityKey: string,
+    options: Omit<CheckOptions, "authenticationOutcome"> = {}
+  ): Promise<LoginCheckResponse> {
+    return this.check(identityKey, {
+      ...options,
+      authenticationOutcome: "success",
+    });
+  }
+
+  /**
+   * Report a failed authentication attempt
+   *
+   * Use this when the user's credentials are invalid (wrong password, MFA failed, etc.).
+   * This helps LoginLlama detect brute force and credential stuffing attacks.
+   *
+   * @param identityKey - User identifier (email, username, user ID, etc.)
+   * @param options - Optional overrides and additional context
+   * @returns Promise resolving to login check result
+   *
+   * @example
+   * // After failed login
+   * const authResult = await authenticate(email, password);
+   * if (!authResult.success) {
+   *   await loginllama.reportFailure(email, { request: req });
+   * }
+   */
+  public async reportFailure(
+    identityKey: string,
+    options: Omit<CheckOptions, "authenticationOutcome"> = {}
+  ): Promise<LoginCheckResponse> {
+    return this.check(identityKey, {
+      ...options,
+      authenticationOutcome: "failed",
     });
   }
 
