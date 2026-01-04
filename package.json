@@ -1,6 +1,6 @@
 {
   "name": "loginllama",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Loginllama API wrapper",
   "main": "lib/loginllama.js",
   "types": "lib/loginllama.d.ts",

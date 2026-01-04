@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/joshghent/loginllama.js/compare/loginllama-v2.1.0...loginllama-v2.2.0) (2026-01-04)
+
+
+### Features
+
+* report failures ([#71](https://github.com/joshghent/loginllama.js/issues/71)) ([44f1b2f](https://github.com/joshghent/loginllama.js/commit/44f1b2ffd76e6a212c18e21b50e5284a7c38203f))
+
 ## [2.1.0](https://github.com/joshghent/loginllama.js/compare/loginllama-v2.0.0...loginllama-v2.1.0) (2026-01-02)
 
 
