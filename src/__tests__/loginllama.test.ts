@@ -1,3 +1,11 @@
+import {
+  LoginLlama,
+  LoginCheckStatus,
+  verifyWebhookSignature,
+} from "../loginllama";
+import { Request } from "express";
+import crypto from "crypto";
+
 jest.mock("./../api", () => {
   return {
     __esModule: true,
@@ -32,14 +40,6 @@ jest.mock("./../api", () => {
     }),
   };
 });
-
-import {
-  LoginLlama,
-  LoginCheckStatus,
-  verifyWebhookSignature,
-} from "../loginllama";
-import { Request } from "express";
-import crypto from "crypto";
 
 const mockRequest = (ip: string, userAgent: string): Partial<Request> => {
   return {
@@ -138,7 +138,16 @@ describe("LoginLlama", () => {
 });
 
 describe("transformApiResponse", () => {
-  const { transformApiResponse } = require("../types");
+  // Import fresh after all mocks are set up to avoid interference
+  let transformApiResponse: any;
+
+  beforeAll(() => {
+    // Clear the module cache to get a fresh import
+    jest.isolateModules(() => {
+      const typesModule = require("../types");
+      transformApiResponse = typesModule.transformApiResponse;
+    });
+  });
 
   it("transforms JSON:API success response to flat format", () => {
     const jsonApi = {
