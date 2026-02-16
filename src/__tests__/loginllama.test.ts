@@ -46,8 +46,8 @@ const mockRequest = (ip: string, userAgent: string): Partial<Request> => {
     ip: ip,
     headers: {
       "user-agent": userAgent,
-    },
-  };
+    } as any,
+  } as Partial<Request>;
 };
 
 describe("LoginLlama", () => {
