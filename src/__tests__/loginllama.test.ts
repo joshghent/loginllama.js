@@ -41,13 +41,13 @@ jest.mock("./../api", () => {
   };
 });
 
-const mockRequest = (ip: string, userAgent: string): Partial<Request> => {
+const mockRequest = (ip: string, userAgent: string): Request => {
   return {
     ip: ip,
     headers: {
       "user-agent": userAgent,
-    } as any,
-  } as Partial<Request>;
+    },
+  } as Request;
 };
 
 describe("LoginLlama", () => {
@@ -114,7 +114,7 @@ describe("LoginLlama", () => {
     const req = mockRequest("192.168.1.1", "Mozilla/5.0");
 
     const result = await loginLlama.check("validUser", {
-      request: req as Request,
+      request: req,
     });
 
     expect(result.status).toBe("success");
