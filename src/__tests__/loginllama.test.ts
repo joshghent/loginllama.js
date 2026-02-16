@@ -13,7 +13,7 @@ jest.mock("./../api", () => {
       return {
         // Mock the post method to return already-transformed responses
         // (since the real API class transforms JSON:API internally)
-        post: jest.fn((_endpoint: string, data: any) => {
+        post: jest.fn((endpoint: string, data: any) => {
           if (data.identity_key === "validUser") {
             return Promise.resolve({
               status: "success",
