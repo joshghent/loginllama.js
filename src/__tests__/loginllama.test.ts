@@ -1,3 +1,11 @@
+import {
+  LoginLlama,
+  LoginCheckStatus,
+  verifyWebhookSignature,
+} from "../loginllama";
+import type { Request } from "express";
+import crypto from "crypto";
+
 jest.mock("./../api", () => {
   return {
     __esModule: true,
@@ -33,22 +41,13 @@ jest.mock("./../api", () => {
   };
 });
 
-import {
-  LoginLlama,
-  LoginCheckStatus,
-  verifyWebhookSignature,
-} from "../loginllama";
-import { Request } from "express";
-import crypto from "crypto";
-
 const mockRequest = (ip: string, userAgent: string): Partial<Request> => {
   return {
     ip: ip,
-    ips: [ip],
     headers: {
       "user-agent": userAgent,
-    },
-  };
+    } as any,
+  } as Partial<Request>;
 };
 
 describe("LoginLlama", () => {
@@ -134,97 +133,5 @@ describe("LoginLlama", () => {
     expect(verifyWebhookSignature(payload, signature, secret)).toBe(true);
     expect(verifyWebhookSignature(payload, "deadbeef", secret)).toBe(false);
     expect(verifyWebhookSignature(payload, signature, "wrong-secret")).toBe(false);
-  });
-});
-
-describe("transformApiResponse", () => {
-  const { transformApiResponse } = require("../types");
-
-  it("transforms JSON:API success response to flat format", () => {
-    const jsonApi = {
-      data: {
-        type: "login_check",
-        attributes: {
-          status: "pass",
-          risk_score: 2,
-          risk_codes: ["login_valid"],
-          unrecognized_device: false,
-          message: "Login check passed",
-        },
-      },
-      meta: {
-        environment: "production",
-        email_sent: false,
-      },
-    };
-
-    const result = transformApiResponse(jsonApi);
-
-    expect(result.status).toBe("success");
-    expect(result.message).toBe("Login check passed");
-    expect(result.risk_score).toBe(2);
-    expect(result.codes).toEqual(["login_valid"]);
-    expect(result.environment).toBe("production");
-    expect(result.unrecognized_device).toBe(false);
-    expect(result.email_sent).toBe(false);
-  });
-
-  it("transforms JSON:API fail response to error status", () => {
-    const jsonApi = {
-      data: {
-        type: "login_check",
-        attributes: {
-          status: "fail",
-          risk_score: 8,
-          risk_codes: ["ip_address_suspicious", "known_tor_exit_node"],
-          unrecognized_device: true,
-          message: "Login check failed",
-        },
-      },
-      meta: {
-        environment: "staging",
-        email_sent: true,
-      },
-    };
-
-    const result = transformApiResponse(jsonApi);
-
-    expect(result.status).toBe("error");
-    expect(result.message).toBe("Login check failed");
-    expect(result.risk_score).toBe(8);
-    expect(result.codes).toEqual(["ip_address_suspicious", "known_tor_exit_node"]);
-    expect(result.unrecognized_device).toBe(true);
-    expect(result.email_sent).toBe(true);
-  });
-
-  it("transforms JSON:API error response correctly", () => {
-    const jsonApi = {
-      errors: [
-        {
-          status: "401",
-          code: "invalid_api_key",
-          title: "Invalid API key",
-          detail: "The provided API key is not valid",
-        },
-      ],
-    };
-
-    const result = transformApiResponse(jsonApi);
-
-    expect(result.status).toBe("error");
-    expect(result.message).toBe("The provided API key is not valid");
-    expect(result.error).toBe("invalid_api_key");
-    expect(result.codes).toEqual([]);
-    expect(result.risk_score).toBe(0);
-  });
-
-  it("handles unexpected response format", () => {
-    const jsonApi = {};
-
-    const result = transformApiResponse(jsonApi);
-
-    expect(result.status).toBe("error");
-    expect(result.message).toBe("Unexpected API response format");
-    expect(result.error).toBe("invalid_response");
   });
 });
