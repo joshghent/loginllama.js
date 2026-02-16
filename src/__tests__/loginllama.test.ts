@@ -3,7 +3,7 @@ import {
   LoginCheckStatus,
   verifyWebhookSignature,
 } from "../loginllama";
-import { Request } from "express";
+import type { Request } from "express";
 import crypto from "crypto";
 
 jest.mock("./../api", () => {
