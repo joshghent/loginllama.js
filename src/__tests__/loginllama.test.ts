@@ -44,11 +44,10 @@ jest.mock("./../api", () => {
 const mockRequest = (ip: string, userAgent: string): Partial<Request> => {
   return {
     ip: ip,
-    ips: [ip],
     headers: {
       "user-agent": userAgent,
     },
-  };
+  } as Partial<Request>;
 };
 
 describe("LoginLlama", () => {
