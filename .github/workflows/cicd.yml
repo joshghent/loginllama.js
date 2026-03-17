@@ -37,7 +37,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
         with:
           run_install: false
 
@@ -79,7 +79,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
         with:
           run_install: false
 
@@ -112,7 +112,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
         with:
           run_install: false
 
