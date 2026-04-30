@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.2.1](https://github.com/joshghent/loginllama.js/compare/loginllama-v2.2.0...loginllama-v2.2.1) (2026-04-30)
+
+
+### Other Changes
+
+* **deps:** update 6 dependencies (tests failing) ([#75](https://github.com/joshghent/loginllama.js/issues/75)) ([d2ef32e](https://github.com/joshghent/loginllama.js/commit/d2ef32ed13fbb894fc22c04e632b330773407c87))
+* **deps:** update 7 dependencies (tests failing) ([#98](https://github.com/joshghent/loginllama.js/issues/98)) ([0d8c570](https://github.com/joshghent/loginllama.js/commit/0d8c570b032145edd3316b4d27e00b5559a8996b))
+* update dependencies (13 packages) ([#73](https://github.com/joshghent/loginllama.js/issues/73)) ([3109b51](https://github.com/joshghent/loginllama.js/commit/3109b514daf4ef5a404d02de0ff8bb1d87e36440))
+
 ## [2.2.0](https://github.com/joshghent/loginllama.js/compare/loginllama-v2.1.0...loginllama-v2.2.0) (2026-01-04)
 
 
