@@ -38,5 +38,13 @@
     "jest": "^30.3.0",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "picomatch": "~2.3.2",
+      "handlebars": "~4.7.9",
+      "flatted": "~3.4.2",
+      "minimatch": "~3.1.3"
+    }
   }
 }
