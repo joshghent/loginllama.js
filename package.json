@@ -38,5 +38,20 @@
     "jest": "^30.3.0",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "handlebars": "~4.7.10",
+      "brace-expansion": "~5.0.12",
+      "js-yaml": "~4.3.2",
+      "baseline-browser-mapping": "~2.11.0",
+      "browserslist": "~4.28.7",
+      "@humanfs/node": "~0.16.8",
+      "@babel/core": "~7.29.6",
+      "form-data": "~4.0.6",
+      "picomatch": "~2.3.2",
+      "flatted": "~3.4.2",
+      "minimatch": "~3.1.3"
+    }
   }
 }
