@@ -1,5 +1,28 @@
 # Changelog
 
+## [3.0.0](https://github.com/joshghent/loginllama.js/compare/loginllama-v2.2.0...loginllama-v3.0.0) (2026-10-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* Node.js 22 is no longer supported. Upgrade to Node.js 24 or later before installing this release.
+
+### Features
+
+* require Node.js 24 or later ([#181](https://github.com/joshghent/loginllama.js/issues/181)) ([5503584](https://github.com/joshghent/loginllama.js/commit/550358496861719c79e95bb68f7e01017e8c505b))
+
+
+### Bug Fixes
+
+* **security:** patch handlebars (critical) and 19 dev-toolchain alerts ([#180](https://github.com/joshghent/loginllama.js/issues/180)) ([da8160b](https://github.com/joshghent/loginllama.js/commit/da8160b63a666824d87f8dc3239ac6b577cd8b92))
+
+
+### Other Changes
+
+* **deps:** update 6 dependencies (tests failing) ([#75](https://github.com/joshghent/loginllama.js/issues/75)) ([d2ef32e](https://github.com/joshghent/loginllama.js/commit/d2ef32ed13fbb894fc22c04e632b330773407c87))
+* **deps:** update 7 dependencies (tests failing) ([#98](https://github.com/joshghent/loginllama.js/issues/98)) ([0d8c570](https://github.com/joshghent/loginllama.js/commit/0d8c570b032145edd3316b4d27e00b5559a8996b))
+* update dependencies (13 packages) ([#73](https://github.com/joshghent/loginllama.js/issues/73)) ([3109b51](https://github.com/joshghent/loginllama.js/commit/3109b514daf4ef5a404d02de0ff8bb1d87e36440))
+
 ## [2.2.0](https://github.com/joshghent/loginllama.js/compare/loginllama-v2.1.0...loginllama-v2.2.0) (2026-01-04)
 
 
