@@ -13,12 +13,12 @@ Official Node.js/TypeScript SDK for [LoginLlama](https://loginllama.app) - AI-po
 ## Installation
 
 ```bash
-npm install loginllama@2.0.0
+npm install loginllama
 # or
-pnpm add loginllama@2.0.0
+pnpm add loginllama
 ```
 
-Requires Node.js 22 or higher.
+Requires Node.js 24 or higher.
 
 ## Quick Start
 
