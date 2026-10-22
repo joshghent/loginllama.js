@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.0.1](https://github.com/joshghent/loginllama.js/compare/loginllama-v3.0.0...loginllama-v3.0.1) (2026-10-22)
+
+
+### Other Changes
+
+* **quality:** add Semgrep code-quality scanning ([#153](https://github.com/joshghent/loginllama.js/issues/153)) ([bb51987](https://github.com/joshghent/loginllama.js/commit/bb51987f1937824d9a2b58468a70f3952f8bb470))
+* **security:** add betterleaks secret scanning ([#159](https://github.com/joshghent/loginllama.js/issues/159)) ([0a93b1c](https://github.com/joshghent/loginllama.js/commit/0a93b1c5792e95fd9a811e2cb539e4b9942be83e))
+
 ## [3.0.0](https://github.com/joshghent/loginllama.js/compare/loginllama-v2.2.0...loginllama-v3.0.0) (2026-10-19)
 
 
