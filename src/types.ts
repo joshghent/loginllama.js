@@ -60,8 +60,12 @@ export interface JsonApiResponse {
  * This is the user-facing format documented in the README
  */
 export interface LoginCheckResponse {
-  /** 'success' if the check completed, 'error' if something went wrong */
-  status: "success" | "error";
+  /**
+   * 'success' if the login passed, 'error' if it did not or the API refused
+   * the request, 'unavailable' if LoginLlama could not be reached in time
+   * (risk_score is then 0, so the login goes ahead)
+   */
+  status: "success" | "error" | "unavailable";
   /** Human-readable message about the result */
   message: string;
   /** Array of detected risk codes */
