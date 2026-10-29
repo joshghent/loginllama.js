@@ -192,7 +192,7 @@ Check a login attempt for suspicious activity.
 
 ```typescript
 interface LoginCheckResponse {
-  status: 'success' | 'error';
+  status: 'success' | 'error' | 'unavailable';
   message: string;
   codes: LoginCheckStatus[];
   risk_score: number; // 0-10 scale
@@ -307,20 +307,11 @@ try {
 }
 ```
 
-**Best Practice:** Fail open on errors to avoid blocking legitimate users during API outages:
-
-```typescript
-try {
-  const result = await loginllama.check(email);
-  if (result.risk_score > 5) {
-    // Block suspicious login
-    return res.status(403).json({ error: 'Login blocked' });
-  }
-} catch (error) {
-  console.error('LoginLlama error:', error);
-  // Fail open - allow login to proceed
-}
-```
+**Outages fail open.** If LoginLlama cannot be reached within 2 seconds, or
+answers with a server error, `check()` resolves with `status: 'unavailable'` and
+`risk_score: 0` instead of throwing. Code that branches on `risk_score`, or on
+`status === 'error'`, lets the login through, so an outage never blocks a real
+user. Log the `unavailable` status if you want to know when it happens.
 
 ## IP Detection
 
