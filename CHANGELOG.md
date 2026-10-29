@@ -1,5 +1,23 @@
 # Changelog
 
+## [3.1.0](https://github.com/joshghent/loginllama.js/compare/loginllama-v3.0.0...loginllama-v3.1.0) (2026-10-29)
+
+
+### Features
+
+* fail open when LoginLlama cannot be reached ([#191](https://github.com/joshghent/loginllama.js/issues/191)) ([26cc188](https://github.com/joshghent/loginllama.js/commit/26cc18871ac5ab1766d1dee0e4967cd35b2a013e))
+
+
+### Bug Fixes
+
+* read the IP and User-Agent from Fetch API requests ([#192](https://github.com/joshghent/loginllama.js/issues/192)) ([f9ffa21](https://github.com/joshghent/loginllama.js/commit/f9ffa21cd42544fda3f992d891f2665b01da4d32))
+
+
+### Other Changes
+
+* **quality:** add Semgrep code-quality scanning ([#153](https://github.com/joshghent/loginllama.js/issues/153)) ([bb51987](https://github.com/joshghent/loginllama.js/commit/bb51987f1937824d9a2b58468a70f3952f8bb470))
+* **security:** add betterleaks secret scanning ([#159](https://github.com/joshghent/loginllama.js/issues/159)) ([0a93b1c](https://github.com/joshghent/loginllama.js/commit/0a93b1c5792e95fd9a811e2cb539e4b9942be83e))
+
 ## [3.0.0](https://github.com/joshghent/loginllama.js/compare/loginllama-v2.2.0...loginllama-v3.0.0) (2026-10-19)
 
 
