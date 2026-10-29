@@ -281,16 +281,17 @@ export class LoginLlama {
   private extractUserAgent(request: any): string | undefined {
     if (!request) return undefined;
 
+    // Fetch API (Next.js, Auth.js, Hono): req.headers.get(). Checked first,
+    // since Headers also passes the Express check below.
+    if (request?.headers?.get) {
+      return request.headers.get("user-agent") || undefined;
+    }
+
     // Express: req.headers
     if (request?.headers) {
       const value =
         request.headers["user-agent"] || request.headers["User-Agent"];
       return typeof value === "string" ? value : value?.[0];
-    }
-
-    // Next.js: req.headers.get()
-    if (request?.headers?.get) {
-      return request.headers.get("user-agent") || undefined;
     }
 
     return undefined;
