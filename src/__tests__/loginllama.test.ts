@@ -122,6 +122,21 @@ describe("LoginLlama", () => {
     expect(result.codes).toContain(LoginCheckStatus.VALID);
   });
 
+  it("reads the IP and User-Agent from a Fetch API request", async () => {
+    // Next.js route handlers, Auth.js and Hono all pass a Fetch Request,
+    // whose headers are read with .get(), not by property.
+    const req = new Request("https://app.example/login", {
+      headers: {
+        "x-forwarded-for": "203.0.113.42",
+        "user-agent": "Mozilla/5.0",
+      },
+    });
+
+    const result = await loginLlama.check("validUser", { request: req });
+
+    expect(result.status).toBe("success");
+  });
+
   it("verifies webhook signatures using constant time comparison", () => {
     const payload = JSON.stringify({ event: "login.checked" });
     const secret = "super-secret";

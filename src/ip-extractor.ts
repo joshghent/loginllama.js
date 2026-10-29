@@ -93,16 +93,17 @@ export class IPExtractor {
    * Get header value from request (handles Express, Next.js, etc.)
    */
   private static getHeader(request: any, name: string): string | undefined {
+    // Fetch API (Next.js, Auth.js, Hono): req.headers.get(). Checked first,
+    // since Headers also passes the Express check below.
+    if (request?.headers?.get) {
+      return request.headers.get(name) || undefined;
+    }
+
     // Express: req.headers (object with lowercase keys)
     if (request?.headers) {
       const lowerName = name.toLowerCase();
       const value = request.headers[lowerName] || request.headers[name];
       return typeof value === "string" ? value : value?.[0];
-    }
-
-    // Next.js: req.headers.get()
-    if (request?.headers?.get) {
-      return request.headers.get(name) || undefined;
     }
 
     return undefined;
