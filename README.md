@@ -187,6 +187,7 @@ Check a login attempt for suspicious activity.
   - `geoCountry`: ISO country code (e.g., 'US', 'GB')
   - `geoCity`: City name for additional context
   - `userTimeOfDay`: Time of login attempt
+  - `privileged`: `true` for admins and other accounts that would hurt most if taken over. Any risk signal on them counts for more, and they get 3 failed attempts before a burst rather than 10
 
 **Returns:** `Promise<LoginCheckResponse>`
 
@@ -228,6 +229,11 @@ const result = await loginllama.check('user@example.com', {
   emailAddress: 'user@example.com',
   geoCountry: 'US',
   geoCity: 'San Francisco'
+});
+
+// Stricter scoring for an admin
+const result = await loginllama.check(user.email, {
+  privileged: user.role === 'admin'
 });
 ```
 

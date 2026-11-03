@@ -19,6 +19,12 @@ export enum LoginCheckStatus {
   GEO_IMPOSSIBLE_TRAVEL = "geo_impossible_travel",
   GEO_COUNTRY_MISMATCH = "geo_country_mismatch",
   USER_AGENT_SUSPICIOUS = "user_agent_suspicious",
+  NEW_LOGIN_LOCATION = "new_login_location",
+  IMPOSSIBLE_TRAVEL_DETECTED = "impossible_travel_detected",
+  GEO_MISMATCH_DETECTED = "geo_mismatch_detected",
+  AFTER_FAILURE_BURST = "after_failure_burst",
+  IP_PASSWORD_SPRAYING = "ip_password_spraying",
+  PRIVILEGED_ACCOUNT = "privileged_account",
 }
 
 /**
@@ -111,6 +117,13 @@ export interface CheckOptions {
    * - 'pending': Pre-auth check, outcome not yet known
    */
   authenticationOutcome?: AuthenticationOutcome;
+
+  /**
+   * An admin or other account that would hurt most if taken over. Any risk
+   * signal on it counts for more (`privileged_account`, +2), and it gets 3
+   * failed attempts before `after_failure_burst` rather than 10.
+   */
+  privileged?: boolean;
 
   /** Express/Next.js request object for automatic extraction */
   request?: unknown;

@@ -71,6 +71,17 @@ describe("LoginLlama", () => {
     expect(result.unrecognized_device).toBe(false);
   });
 
+  it("sends privileged for an admin account", async () => {
+    await loginLlama.check("validUser", {
+      ipAddress: "192.168.1.1",
+      userAgent: "Mozilla/5.0",
+      privileged: true,
+    });
+
+    const [, body] = (loginLlama as any).api.post.mock.calls[0];
+    expect(body.privileged).toBe(true);
+  });
+
   it("should return error status for suspicious login", async () => {
     const result = await loginLlama.check("invalidUser", {
       ipAddress: "192.168.1.1",
