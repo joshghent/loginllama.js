@@ -179,6 +179,7 @@ export class LoginLlama {
       geo_city: options.geoCity,
       user_time_of_day: options.userTimeOfDay,
       authentication_outcome: options.authenticationOutcome,
+      privileged: options.privileged,
     });
   }
 
