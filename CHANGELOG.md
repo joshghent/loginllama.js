@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/joshghent/loginllama.js/compare/loginllama-v3.1.0...loginllama-v3.2.0) (2026-11-04)
+
+
+### Features
+
+* send privileged for admin accounts ([#196](https://github.com/joshghent/loginllama.js/issues/196)) ([20770fb](https://github.com/joshghent/loginllama.js/commit/20770fb7c958e74436de58bccf6e41eda4e9bdd3))
+
 ## [3.1.0](https://github.com/joshghent/loginllama.js/compare/loginllama-v3.0.0...loginllama-v3.1.0) (2026-10-29)
 
 
