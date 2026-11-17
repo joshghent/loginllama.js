@@ -28,7 +28,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^24.19.2",
     "@types/node-fetch": "^2.6.13",
-    "@typescript-eslint/eslint-plugin": "^8.71.2",
+    "@typescript-eslint/eslint-plugin": "^8.72.2",
     "@typescript-eslint/parser": "^8.71.2",
     "eslint": "^10.2.1",
     "eslint-config-standard": "^17.1.0",
